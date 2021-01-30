@@ -1,6 +1,19 @@
 import tkinter as tk
 from tkinter import ttk
 
+import requests
+
+url = 'https://api.frankfurter.app/currencies'
+response = requests.get(url)
+currencies_dict = response.json()
+#print(currencies_dict.keys())
+currencies = []
+
+for currency in currencies_dict.keys():
+    #print(currency)
+    currencies.append(currency)
+
+
 class CurrencyConverter(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
@@ -26,14 +39,17 @@ class CurrencyConverter(tk.Frame):
         self.currency = tk.StringVar()
         self.choose_currency = ttk.Combobox(self, textvariable=self.currency, 
                                     font="Arial 12", width=10)
-        self.choose_currency['values'] = ()
+        self.choose_currency['values'] = (currencies)
         self.choose_currency.grid(row=2, column=1, padx=10)
 
         self.exchange_label = tk.Label(self, text="Exchange to:", 
                                     font="Arial 12")
         self.exchange_label.grid(row=1, column=2)
-        self.exchange_entry = tk.Entry(self, font="Arial 12", width=10)
-        self.exchange_entry.grid(row=2, column=2, padx=10)
+        self.exchange = tk.StringVar()
+        self.exchange_to = ttk.Combobox(self, textvariable=self.exchange, 
+                                    font="Arial 12", width=10)
+        self.exchange_to['values'] = (currencies)
+        self.exchange_to.grid(row=2, column=2, padx=10)
 
         self.convert = tk.Button(self, text="Convert", command=self.convert, 
                                 font="Arial 12")
