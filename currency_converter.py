@@ -67,9 +67,6 @@ class CurrencyConverter(tk.Frame):
         amount = self.amount_var.get()
         currency = self.currency.get()
         exchange = self.exchange.get()
-        print(amount)
-        print(currency)
-        print(exchange)
 
         convert_url = f'https://api.frankfurter.app/latest?amount={amount}&from={currency}&to={exchange}'
         convert_response = requests.get(convert_url)
