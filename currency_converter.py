@@ -15,23 +15,24 @@ class CurrencyConverter(tk.Frame):
 
         self.amount_label = tk.Label(self, text="Amount:", font="Arial 12")
         self.amount_label.grid(row=1, column=0)
+        self.amount_var = tk.StringVar()
+        self.amount_entry = tk.Entry(self, text=self.amount_var, 
+                                    font="Arial 12", width=10)
+        self.amount_entry.grid(row=2, column=0, padx=10)
 
         self.currency_label = tk.Label(self, text="Currency:", font="Arial 12")
         self.currency_label.grid(row=1, column=1)
-
-        self.exchange_label = tk.Label(self, text="Exchange to:", font="Arial 12")
-        self.exchange_label.grid(row=1, column=2)
-
-        self.amount_entry = tk.Entry(self, font="Arial 12", width=10)
-        self.amount_entry.grid(row=2, column=0, padx=10)
-
         self.currency_entry = tk.Entry(self, font="Arial 12", width=10)
         self.currency_entry.grid(row=2, column=1, padx=10)
 
+        self.exchange_label = tk.Label(self, text="Exchange to:", 
+                                    font="Arial 12")
+        self.exchange_label.grid(row=1, column=2)
         self.exchange_entry = tk.Entry(self, font="Arial 12", width=10)
         self.exchange_entry.grid(row=2, column=2, padx=10)
 
-        self.convert = tk.Button(self, text="Convert", font="Arial 12")
+        self.convert = tk.Button(self, text="Convert", command=self.convert, 
+                                font="Arial 12")
         self.convert.grid(row=2, column=3, padx=10)
 
         self.current_currency = tk.Entry(self, font="Arial 12", width=10)
@@ -39,6 +40,11 @@ class CurrencyConverter(tk.Frame):
 
         self.exchanged = tk.Entry(self, font="Arial 12", width=10)
         self.exchanged.grid(row=3, column=2, padx=10, pady=10)
+
+    def convert(self):
+        amount = float(self.amount_var.get())
+        print(amount)
+
 
 root = tk.Tk()
 currency_converter = CurrencyConverter(master=root)
