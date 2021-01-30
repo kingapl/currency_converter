@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 
 class CurrencyConverter(tk.Frame):
     def __init__(self, master=None):
@@ -22,8 +23,11 @@ class CurrencyConverter(tk.Frame):
 
         self.currency_label = tk.Label(self, text="Currency:", font="Arial 12")
         self.currency_label.grid(row=1, column=1)
-        self.currency_entry = tk.Entry(self, font="Arial 12", width=10)
-        self.currency_entry.grid(row=2, column=1, padx=10)
+        self.currency = tk.StringVar()
+        self.choose_currency = ttk.Combobox(self, textvariable=self.currency, 
+                                    font="Arial 12", width=10)
+        self.choose_currency['values'] = ()
+        self.choose_currency.grid(row=2, column=1, padx=10)
 
         self.exchange_label = tk.Label(self, text="Exchange to:", 
                                     font="Arial 12")
