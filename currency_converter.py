@@ -6,11 +6,9 @@ import requests
 url = 'https://api.frankfurter.app/currencies'
 response = requests.get(url)
 currencies_dict = response.json()
-#print(currencies_dict.keys())
 currencies = []
 
 for currency in currencies_dict.keys():
-    #print(currency)
     currencies.append(currency)
 
 
@@ -55,15 +53,32 @@ class CurrencyConverter(tk.Frame):
                                 font="Arial 12")
         self.convert.grid(row=2, column=3, padx=10)
 
-        self.current_currency = tk.Entry(self, font="Arial 12", width=10)
+        self.current_currency_var = tk.StringVar()
+        self.current_currency = tk.Entry(self, text=self.current_currency_var, 
+                                    font="Arial 12", width=10)
         self.current_currency.grid(row=3, column=1, padx=10, pady=10)
 
-        self.exchanged = tk.Entry(self, font="Arial 12", width=10)
+        self.exchanged_var = tk.StringVar()
+        self.exchanged = tk.Entry(self, text=self.exchanged_var, 
+                                    font="Arial 12", width=10)
         self.exchanged.grid(row=3, column=2, padx=10, pady=10)
 
     def convert(self):
         amount = self.amount_var.get()
+        currency = self.currency.get()
+        exchange = self.exchange.get()
         print(amount)
+        print(currency)
+        print(exchange)
+
+        convert_url = f'https://api.frankfurter.app/latest?amount={amount}&from={currency}&to={exchange}'
+        convert_response = requests.get(convert_url)
+        convert_dict = convert_response.json()
+        rates = convert_dict['rates']
+        exchange_value = rates[exchange]
+
+        self.current_currency_var.set(f"{amount} {currency}")
+        self.exchanged_var.set(f"{exchange_value} {exchange}")
 
 
 root = tk.Tk()
