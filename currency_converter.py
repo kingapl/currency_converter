@@ -56,11 +56,14 @@ class CurrencyConverter(tk.Frame):
         self.current_currency_var = tk.StringVar()
         self.current_currency = tk.Entry(self, text=self.current_currency_var, 
                                     font="Arial 12", width=10)
-        self.current_currency.grid(row=3, column=1, padx=10, pady=10)
+        self.current_currency.grid(row=3, column=1, padx=10, pady=10, sticky="w")
+
+        self.equal = tk.Label(self, text="=", font="Arial 12")
+        self.equal.grid(row=3, column=1, sticky="e")
 
         self.exchanged_var = tk.StringVar()
         self.exchanged = tk.Entry(self, text=self.exchanged_var, 
-                                    font="Arial 12", width=10)
+                                    font="Arial 12", width=12)
         self.exchanged.grid(row=3, column=2, padx=10, pady=10)
 
     def convert(self):
